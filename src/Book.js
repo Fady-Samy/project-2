@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 
 class Book extends Component {
-
+    handleShelf = (event) =>{
+        const {id,image,title,author} = this.props;
+        {console.log(title)}
+        const choosenShelf = event.target.value;
+        console.log(id);
+        this.props.addBook(id,image,title,author,choosenShelf);
+        event.target.inneText=" ✓ ";
+    }
     render() {
-        const {image,title,author} = this.props;
+        const {image,title,author,shelf} = this.props;
         return (
             <div className="book">
                 <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${image})` }}></div>
+                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${image}")` }}></div>
                     <div className="book-shelf-changer">
-                        <select >
+                        <select onChange={this.handleShelf} value={shelf ? shelf : 'none'}>
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>

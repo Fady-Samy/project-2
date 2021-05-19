@@ -101,3 +101,16 @@ divided app into
     - Search.js
 
 Added Book Component to display single books
+
+Added react routers
+
+Configured Search and main page routes so now we can navigate between search and main page
+
+Cleaned the state from fixed values and used getAll method from the api to display persisted data
+
+Added support to change book shelf on main page
+
+Added support to add books to shelf from search
+
+Added support to show search result even if books have no thumbnail
+
