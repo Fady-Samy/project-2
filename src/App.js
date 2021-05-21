@@ -27,15 +27,11 @@ class BooksApp extends React.Component {
     //If book exist then update the shelf only
     const bookExist = this.checkBook(bookID);
     if(bookExist){
-      console.log("Old book");
       BooksAPI.update(bookExist,shelf)
-          .then(updatedBooks =>(
-            console.log(updatedBooks)
-          ))
+          .then(this.updateStatus)
     }
     //Else it is a new book then add to the state
     else{
-      console.log("New book");
       var newBook= 
       { id: bookID,
         imageLinks: {smallThumbnail:bookIMG},
@@ -63,6 +59,16 @@ class BooksApp extends React.Component {
         bookFound = book)
     ));
     return bookFound;
+  }
+
+  //updateStatus
+  updateStatus = () =>{
+    BooksAPI.getAll()
+     .then(result =>{
+       this.setState(()=>({
+         books: result,
+       }))
+     });
   }
 
   render() {

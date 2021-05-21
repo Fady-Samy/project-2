@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Book from './Book';
 
-class CurrentlyReading extends Component {
-    render() {
-        const {books, addBook} = this.props;
+function CurrentlyReading(props){
+    const {books, addBook} = props;
         return (
             <div className="bookshelf">
                 <h2 className="bookshelf-title">Currently Reading</h2>
@@ -19,7 +18,6 @@ class CurrentlyReading extends Component {
                 </div>
           </div>
         );
-    }
 }
 
 export default CurrentlyReading;

@@ -15,12 +15,15 @@ class Search extends Component {
       this.setState({
         searchQuery : event.target.value,
       })
-      BooksAPI.search(event.target.value)
+      event.target.value!=="" ? BooksAPI.search(event.target.value)
       .then(resultBooks =>{
         this.setState({
           searchBooks : resultBooks,
         })
       }).catch(err=>console.log(err))
+      :  this.setState({
+        searchBooks : "",
+      })
     }
 
     //getShelf to display in search
