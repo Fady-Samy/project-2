@@ -10,24 +10,36 @@ class Search extends Component {
       searchBooks:[],
     }
 
+    //Serach input handle
     handleChange = (event) => {
       this.setState({
         searchQuery : event.target.value,
       })
       BooksAPI.search(event.target.value)
       .then(resultBooks =>{
-        console.log(resultBooks);
         this.setState({
           searchBooks : resultBooks,
         })
       }).catch(err=>console.log(err))
     }
 
+    //getShelf to display in search
+    getShelf = (id) =>{
+      const {books} = this.props;
+      var shelf;
+      for(let i=0;i<books.length;i++){
+        if(books[i].id===id){
+          shelf=books[i].shelf;
+        }
+      }
+      return shelf;
+    }
+
 
     render() {
         const {searchQuery,searchBooks} = this.state;
         const {addBook} = this.props;
-
+    
         return (
             <div className="search-books">
             <div className="search-books-bar">
@@ -38,9 +50,9 @@ class Search extends Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                  { searchBooks ? searchBooks.map( (book) =>(
-                    <li key={book.id}> 
-                      <Book id= {book.id} image={book.imageLinks ? book.imageLinks.smallThumbnail : "" } title={book.title} author={book.authors} addBook={addBook}/> 
+                  { (searchBooks && !searchBooks.error) ? searchBooks.map( (book) =>(
+                    <li key={book.id}>
+                      <Book id= {book.id} image={book.imageLinks ? book.imageLinks.smallThumbnail : "" } title={book.title} author={book.authors} shelf={this.getShelf(book.id)} addBook={addBook}/>
                     </li>
                    ) ) : "" 
                   }

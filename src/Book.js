@@ -3,11 +3,8 @@ import React, { Component } from 'react';
 class Book extends Component {
     handleShelf = (event) =>{
         const {id,image,title,author} = this.props;
-        {console.log(title)}
         const choosenShelf = event.target.value;
-        console.log(id);
         this.props.addBook(id,image,title,author,choosenShelf);
-        event.target.inneText=" ✓ ";
     }
     render() {
         const {image,title,author,shelf} = this.props;

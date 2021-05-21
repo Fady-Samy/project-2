@@ -26,8 +26,8 @@ class BooksApp extends React.Component {
   addBook = (bookID,bookIMG,bookTitle,bookAuthor,shelf) => {
     //If book exist then update the shelf only
     const bookExist = this.checkBook(bookID);
-    console.log("Check " + bookExist);
     if(bookExist){
+      console.log("Old book");
       BooksAPI.update(bookExist,shelf)
           .then(updatedBooks =>(
             console.log(updatedBooks)
@@ -35,6 +35,7 @@ class BooksApp extends React.Component {
     }
     //Else it is a new book then add to the state
     else{
+      console.log("New book");
       var newBook= 
       { id: bookID,
         imageLinks: {smallThumbnail:bookIMG},
@@ -57,16 +58,14 @@ class BooksApp extends React.Component {
   checkBook = (id) =>{
     const {books} = this.state;
     var bookFound=false;
-    books.map(book=>{
-      if(book.id===id){
-        bookFound = book;
-      }
-    });
+    books.map(book=>(
+      book.id===id &&(
+        bookFound = book)
+    ));
     return bookFound;
   }
 
   render() {
-    console.log(this.state.books);
     return (
       <div className="app">
          <Route exact path='/' render={()=> (
@@ -86,7 +85,7 @@ class BooksApp extends React.Component {
           </div>
         </div>)}/>
         <Route exact path="/search" render={()=>(
-            <Search addBook={this.addBook}/>
+            <Search books={this.state.books} addBook={this.addBook}/>
         )}/>
       </div>
     )

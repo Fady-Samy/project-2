@@ -114,3 +114,4 @@ Added support to add books to shelf from search
 
 Added support to show search result even if books have no thumbnail
 
+Added functionality of displaying the book current shelf in search result and handled invalid queries
